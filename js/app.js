@@ -1,10 +1,35 @@
+import React from 'react';
 import component from 'omniscient';
-import {DOM} from 'react/addons';
-let {div} = DOM;
 
-export default component('App', ({counter}) =>
-  div({ className: 'app' },
-    counter.deref()));
+var Ctl = component(
+  model =>
+  <button onClick={() => model.update(v => !v)}>
+    {model.deref() ? "Stop" : "Start"}
+  </button>
+);
+
+var Count = component(
+  model => <span className="count">{model.deref()}</span>
+);
+
+// var Count = component(
+//   ({value}) => <span className='count'>{value.deref()}</span>
+//   );
+//
+
+export default component(
+  'App',
+  model =>
+    <div className='app'>
+      <h1>Counter Control in Omniscient</h1>
+      <div>{Count(model.cursor('counter'))}</div>
+      <div>{Ctl(model.cursor("run"))}</div>
+    </div>
+
+  );
+
+
+
 
   // or with jsx:
   //

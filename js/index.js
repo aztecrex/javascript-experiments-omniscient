@@ -6,19 +6,43 @@ import App from './app';
 import '../less/index.less';
 
 let data = immstruct({
-  counter: 0
+  counter: 0,
+  run: false,
+  some: "More data here",
+  things: ["one","two","three"]
 });
 
 let el = document.querySelector('#app');
 
-let render = () =>
+function render() {
   React.render(
-    App({ counter: data.cursor('counter') }),
+    App(data.cursor()),
     el);
+}
+
+
+let control = (function() {
+  var curState = false;
+  var interval;
+
+  return function (newState) {
+    console.log("control invoked with:" + newState)
+    if (newState != curState) {
+      if (newState) {
+        interval = setInterval(
+           () => data.cursor().update('counter', i => i + 17),
+           100);
+      } else {
+        clearInterval(interval);
+      }
+      curState = newState;
+    }
+  }
+})();
+
+let gate = data.reference('run');
+control(gate.cursor().deref())
+gate.observe('change', go => control(go))
 
 render();
 data.on('swap', render);
-
-setInterval(
-  () => data.cursor().update('counter', i => i + 1),
-  1000);
