@@ -1,12 +1,4 @@
-# omniscient starter pack
-
-- omniscient
-- immstruct
-- babel
-- webpack
-- react-hot-reload
-- less
-- autoprefixer
+# Experiments with Omniscient
 
 Run
 
