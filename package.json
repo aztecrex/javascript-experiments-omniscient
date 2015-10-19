@@ -1,7 +1,7 @@
 {
-  "name": "omniscient-starter-pack",
+  "name": "javascript-experiments-omniscient",
   "version": "1.0.0",
-  "description": "omniscient+immstruct es6 starter pack",
+  "description": "Experiment with Omniscient (React + ImmutableJS + Sugar)",
   "main": "hot-reload-server.js",
   "dependencies": {
     "autoprefixer-loader": "^2.0.0",
