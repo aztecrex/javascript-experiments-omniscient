@@ -5,6 +5,8 @@ import immstruct from 'immstruct';
 import App from './app';
 import '../less/index.less';
 
+import Pulse from './pulse'
+
 let data = immstruct({
   counter: 0,
   run: false,
@@ -20,25 +22,9 @@ function render() {
     el);
 }
 
-
-let control = (function() {
-  var curState = false;
-  var interval;
-
-  return function (newState) {
-    console.log("control invoked with:" + newState)
-    if (newState != curState) {
-      if (newState) {
-        interval = setInterval(
-           () => data.cursor().update('counter', i => i + 17),
-           100);
-      } else {
-        clearInterval(interval);
-      }
-      curState = newState;
-    }
-  }
-})();
+let control = Pulse(() => data.cursor().update(
+  'counter', i => i + 17),
+  100);
 
 let gate = data.reference('run');
 control(gate.cursor().deref())
